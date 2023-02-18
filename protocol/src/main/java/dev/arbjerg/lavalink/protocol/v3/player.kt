@@ -44,7 +44,9 @@ data class TrackInfo(
     val position: Long,
     val title: String,
     val uri: String?,
-    val sourceName: String
+    val sourceName: String,
+    val artworkUrl: String?,
+    val isTrackUnavailable: Boolean?
 )
 
 data class VoiceState(

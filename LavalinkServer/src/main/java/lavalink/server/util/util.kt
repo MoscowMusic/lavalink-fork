@@ -49,7 +49,9 @@ fun AudioTrack.toInfo(): TrackInfo {
         this.position,
         this.info.title,
         this.info.uri,
-        this.sourceManager.sourceName
+        this.sourceManager.sourceName,
+        this.info.artworkUrl,
+        this.info.isTrackUnavailable
     )
 }
 
