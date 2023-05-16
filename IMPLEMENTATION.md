@@ -40,6 +40,9 @@ All websocket ops are deprecated as of `v3.7.0` and replaced with the following 
 
 ## Future breaking changes for v4
 
+> **Warning**
+> We are currently reconsidering these desicions. See https://github.com/lavalink-devs/Lavalink/discussions/859 for more info
+
 * HTTP endpoints not under a version path (`/v3`, `/v4`) will be removed except `/version` in v4.
 * `/v4/websocket` will not accept any websocket messages. In `v4` the websocket is only used for server-to-client messages.
 * The `/v3` API will still be available to be used.
@@ -694,13 +697,15 @@ Request:
 | encodedTrack? * | ?string                            | The encoded track base64 to play. `null` stops the current track              |
 | identifier? *   | string                             | The track identifier to play                                                  |
 | position?       | int                                | The track position in milliseconds                                            |
-| endTime?        | int                                | The track end time in milliseconds                                            |
+| endTime?        | ?int                               | The track end time in milliseconds (must be > 0)                              |
 | volume?         | int                                | The player volume from 0 to 1000                                              |
 | paused?         | bool                               | Whether the player is paused                                                  |
 | filters?        | [Filters](#filters) object         | The new filters to apply. This will override all previously applied filters   |                   
 | voice?          | [Voice State](#voice-state) object | Information required for connecting to Discord, without `connected` or `ping` |
 
-**\* Note that `encodedTrack` and `identifier` are mutually exclusive.**
+> **Note**
+> - `encodedTrack` and `identifier` are mutually exclusive.
+> - `sessionId` in the path should be the value from the [ready op](#ready-op).
 
 When `identifier` is used, Lavalink will try to resolve the identifier as a single track. An HTTP `400` error is returned when resolving a playlist, search result, or no tracks.
 
@@ -784,6 +789,7 @@ Filters are used in above requests and look like this
 | distortion? | [Distortion](#distortion) object   | Lets you distort the audio                                                                          |
 | channelMix? | [Channel Mix](#channel-mix) object | Lets you mix both channels (left and right)                                                         |
 | lowPass?    | [Low Pass](#low-pass) object       | Lets you filter higher frequencies                                                                  |
+| ...         | ...                                | Plugins may add different filters which can also be set here                                        |
 
 ##### Equalizer
 
@@ -816,7 +822,7 @@ where -0.25 means the given band is completely muted, and 0.25 means it is doubl
 
 | Field | Type  | Description             |
 |-------|-------|-------------------------|
-| bands | int   | The band (0 to 14)      |
+| band  | int   | The band (0 to 14)      |
 | gain  | float | The gain (-0.25 to 1.0) |
 
 ##### Karaoke
@@ -1497,7 +1503,7 @@ Response:
 
 | Field            | Type   | Description                                              |
 |------------------|--------|----------------------------------------------------------|
-| address          | string | The failing address                                      |
+| failingAddress   | string | The failing address                                      |
 | failingTimestamp | int    | The timestamp when the address failed                    |
 | failingTime      | string | The timestamp when the address failed as a pretty string |
 
@@ -1514,7 +1520,7 @@ Response:
     },
     "failingAddresses": [
       {
-        "address": "/1.0.0.0",
+        "failingAddress": "/1.0.0.0",
         "failingTimestamp": 1573520707545,
         "failingTime": "Mon Nov 11 20:05:07 EST 2019"
       }

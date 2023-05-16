@@ -7,7 +7,6 @@ plugins {
 
 val archivesBaseName = "plugin-api"
 group = "dev.arbjerg.lavalink"
-version = "3.6.1"
 
 dependencies {
     api(libs.spring.boot)
@@ -47,7 +46,7 @@ publishing {
                 licenses {
                     license {
                         name.set("The MIT License")
-                        url.set("https://github.com/freyacodes/Lavalink/blob/master/LICENSE")
+                        url.set("https://github.com/lavalink-devs/Lavalink/blob/master/LICENSE")
                     }
                 }
 
