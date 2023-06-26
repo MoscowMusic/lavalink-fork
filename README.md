@@ -11,6 +11,21 @@ A [basic example bot](Testbot) is available.
 
 [![Lavalink Guild](https://discordapp.com/api/guilds/1082302532421943407/embed.png?style=banner2)](https://discord.gg/ZW4s47Ppw4)
 
+<details>
+<summary>Table of Contents</summary>
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Changelog](#changelog)
+- [Versioning policy](#versioning-policy)
+- [Client libraries](#client-libraries)
+- [Server configuration](#server-configuration)
+  - [Config](#config)
+  - [Binary](#binary)
+  - [Docker](#docker)
+
+</details>
+
 ## Features
 * Powered by Lavaplayer
 * Minimal CPU/memory footprint
@@ -69,7 +84,7 @@ Additional labels for release candidates are available as extensions to the `MAJ
 | [Lavalink.kt](https://github.com/DRSchlaubi/lavalink.kt)                                              | Kotlin   | JDA/Kord/**Any**                           | ✅                | Kotlin Coroutines               |
 | [Lavalink.py](https://github.com/Devoxin/Lavalink.py)                                                 | Python   | **Any**                                    | ❌                |                                 |
 | [lavasnek_rs](https://github.com/vicky5124/lavasnek_rs)                                               | Python   | **Any\***                                  | ❌                | *`asyncio`-based libraries only |
-| [lavaplayer-py](https://github.com/HazemMeqdad/lavaplayer)                                            | Python   | **Any\***                                  | ❌                | *`asyncio`-based libraries only |
+| [lavaplay.py](https://github.com/HazemMeqdad/lavaplay.py)                                            | Python   | **Any\***                                  | ✅                | *`asyncio`-based libraries only |
 | [Mafic](https://github.com/ooliver1/mafic)                                                            | Python   | discord.py **V2**/nextcord/disnake/py-cord | ✅                |                                 |
 | [Wavelink](https://github.com/PythonistaGuild/Wavelink)                                               | Python   | discord.py **V2**                          | ✅                |                                 |
 | [Pomice](https://github.com/cloudwithax/pomice)                                                       | Python   | discord.py **V2**                          | ✅                |                                 |
@@ -87,6 +102,7 @@ Additional labels for release candidates are available as extensions to the `MAJ
 | [@skyra/audio](https://github.com/skyra-project/audio)                                                | Node.js  | discord.js                                 | ❌                | Archived                        |
 | [Poru](https://github.com/parasop/poru)                                                               | Node.js  | **Any**                                    | ✅                |                                 |
 | [Shoukaku](https://github.com/Deivu/Shoukaku)                                                         | Node.js  | **Any**                                    | ✅                |                                 |
+| [Cosmicord.js](https://github.com/SudhanPlayz/Cosmicord.js)                                           | Node.js  | **Any**                                    | ✅                |                                 |
 | [Lavaudio](https://github.com/rilysh/lavaudio)                                                        | Node.js  | **Any**                                    | ❌                |                                 |
 | [Gorilink](https://github.com/Gorillas-Team/Gorilink)                                                 | Node.js  | discord.js                                 | ❌                | Archived/Unmaintained           |
 | [SandySounds](https://github.com/MrJohnCoder/SandySounds)                                             | Node.js  | **Any**                                    | ❌                | Unmaintained                    |
@@ -203,7 +219,7 @@ LOGGING_LOGBACK_ROLLINGPOLICY_MAX_HISTORY
 
 
 ### Binary
-Download binaries from the [Download Server](https://repo.arbjerg.dev/lavalink), [GitHub releases](https://github.com/lavalink-devs/Lavalink/releases) (specific versions prior to `v3.5` can be found in the [CI Server](https://ci.fredboat.com/viewLog.html?buildId=lastSuccessful&buildTypeId=Lavalink_Build&tab=artifacts&guest=1)) or [GitHub actions](https://github.com/lavalink-devs/Lavalink/actions).
+Download binaries from the [Download Server](https://repo.arbjerg.dev/artifacts/lavalink/), [GitHub releases](https://github.com/lavalink-devs/Lavalink/releases) (specific versions prior to `v3.5` can be found in the [CI Server](https://ci.fredboat.com/viewLog.html?buildId=lastSuccessful&buildTypeId=Lavalink_Build&tab=artifacts&guest=1)) or [GitHub actions](https://github.com/lavalink-devs/Lavalink/actions).
 
 Put an `application.yml` file in your working directory. ([Example here](LavalinkServer/application.yml.example))
 
@@ -223,7 +239,7 @@ version: "3.8"
 
 services:
     lavalink:
-        image: ghcr.io/freyacodes/lavalink:3 # pin the image version to Lavalink v3
+        image: ghcr.io/lavalink-devs/lavalink:3 # pin the image version to Lavalink v3
         container_name: lavalink
         restart: unless-stopped
         environment:
