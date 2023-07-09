@@ -46,6 +46,7 @@ data class TrackInfo(
     val uri: String?,
     val sourceName: String,
     val artworkUrl: String?,
+    val isTrackUnavailable: Boolean?,
     val isrc: String?
 )
 
