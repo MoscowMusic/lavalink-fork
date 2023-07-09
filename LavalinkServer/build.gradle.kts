@@ -5,6 +5,8 @@ import org.springframework.boot.gradle.tasks.run.BootRun
 plugins {
     application
     `maven-publish`
+    kotlin("jvm")
+    id("org.jetbrains.dokka")
 }
 
 apply(plugin = "org.springframework.boot")
@@ -17,7 +19,6 @@ apply(from = "../repositories.gradle")
 
 val archivesBaseName = "Lavalink"
 group = "dev.arbjerg.lavalink"
-
 description = "Play audio to discord voice channels"
 
 application {
@@ -25,8 +26,17 @@ application {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    withJavadocJar()
+    withSourcesJar()
+}
+
+val dokkaJar by tasks.registering(Jar::class) {
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    description = "Assembles Javadoc with Dokka"
+    archiveClassifier.set("javadoc")
+    from(tasks.dokkaJavadoc)
 }
 
 configurations {
@@ -62,10 +72,10 @@ dependencies {
     implementation(libs.kotlin.reflect)
     implementation(libs.logback)
     implementation(libs.sentry.logback)
-    implementation(libs.oshi)
-    implementation(libs.json)
-
-    compileOnly(libs.spotbugs)
+    implementation(libs.oshi) {
+        // This version of SLF4J does not recognise Logback 1.2.3
+        exclude(group = "org.slf4j", module = "slf4j-api")
+    }
 
     testImplementation(libs.spring.boot.test)
 }
@@ -155,7 +165,9 @@ tasks {
 publishing {
     publications {
         create<MavenPublication>("LavalinkServer") {
-            from(project.components["java"])
+            artifact(tasks.named("bootJar"))
+            artifact(tasks.kotlinSourcesJar)
+            artifact(dokkaJar)
 
             pom {
                 name.set("Lavalink Server")
