@@ -36,8 +36,10 @@ fun VersionCatalogBuilder.spring() {
 }
 
 fun VersionCatalogBuilder.voice() {
-    library("lavaplayer",            "com.github.MoscowMusic.lavaplayer-fork", "lavaplayer").version("1.4.21")
-    library("lavaplayer-ip-rotator", "dev.arbjerg", "lavaplayer-ext-youtube-rotator").version("2.0.0")
+    version("lavaplayer", "2.0.0")
+
+    library("lavaplayer",            "MoscowMusic", "lavaplayer").versionRef("lavaplayer")
+    library("lavaplayer-ip-rotator", "MoscowMusic", "lavaplayer-ext-youtube-rotator").versionRef("lavaplayer")
     library("lavadsp",               "dev.arbjerg", "lavadsp").version("0.7.8")
 
     library("koe",          "moe.kyokobot.koe", "core").version("2.0.0-rc1")
